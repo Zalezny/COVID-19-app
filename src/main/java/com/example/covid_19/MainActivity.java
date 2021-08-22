@@ -28,7 +28,7 @@ import java.util.Date;
  * That's code the COVID-19 app.
  */
 
-// TODO: Add JSON flags and config with code.
+// TODO: Add JSON flags and config with code. klaja
 
 
 

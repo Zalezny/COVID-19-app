@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -28,7 +29,7 @@ import java.util.Date;
  * That's code the COVID-19 app.
  */
 
-// TODO: Add JSON flags and config with code. klaja
+// TODO: Add JSON flags and config with code.
 
 
 
@@ -141,6 +142,11 @@ public class MainActivity extends AppCompatActivity {
 
                 if (isAddButtonPressed) {
                     choiceUser();
+                    ImageView countryFlag;
+                    countryFlag = findViewById(R.id.name_flag);
+                    FlagsDataModel model = new FlagsDataModel();
+                    loadImage(model.imageURL(), countryFlag);
+
                     Log.d("onResume", "button pressed");
                 }
 
@@ -205,9 +211,17 @@ public class MainActivity extends AppCompatActivity {
         countryName.setText(chosenCountry);
     }
 
+    private void loadImage(String url, ImageView countryFlag) {
+        Picasso.with(getBaseContext())
+                .load(url)
+                .into(countryFlag);
+    }
+
+
+
     //GETTERS
 
-    public boolean sConfirmed() {
+    public boolean isConfirmed() {
         return isConfirmed;
     }
 
@@ -233,6 +247,10 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean isLastedUpdated() {
         return isLastUpdated;
+    }
+
+    public String getChosenCountry() {
+        return chosenCountry;
     }
 }
 

@@ -63,7 +63,7 @@ public class DataModel extends MainActivity {
                                     mNewConfirmedCountry.setVisibility(View.GONE);
                                 }
 
-                                if (isNewConfirmed()) {
+                                if (isConfirmed()) {
                                     String ConfirmedfromJSON = response.getJSONArray("Countries").getJSONObject(i).getString("TotalConfirmed");
                                     String Confirmed = mConfirmedCountry.getText() + ConfirmedfromJSON;
                                     mConfirmedCountry.setText(Confirmed);

@@ -36,13 +36,14 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     final String BASE_URL_SUMMARY = "https://api.covid19api.com/summary";
+    String countryCodeURL = "https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16";
 
     TextView todayDate;
 
     FloatingActionButton addButton;
 
 
-    String chosenCountry;
+    static String chosenCountry;
 
     TextView countryName;
 
@@ -145,7 +146,8 @@ public class MainActivity extends AppCompatActivity {
                     ImageView countryFlag;
                     countryFlag = findViewById(R.id.name_flag);
                     FlagsDataModel model = new FlagsDataModel();
-                    loadImage(model.imageURL(), countryFlag);
+                    model.letsDoSomeNetworking(countryCodeURL);
+                    loadImage(model.getUrl(), countryFlag);
 
                     Log.d("onResume", "button pressed");
                 }
@@ -215,6 +217,8 @@ public class MainActivity extends AppCompatActivity {
         Picasso.with(getBaseContext())
                 .load(url)
                 .into(countryFlag);
+
+
     }
 
 
@@ -249,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
         return isLastUpdated;
     }
 
-    public String getChosenCountry() {
+    public static String getChosenCountry() {
         return chosenCountry;
     }
 }

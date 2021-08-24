@@ -1,51 +1,45 @@
 
 package com.example.covid_19;
-
 import android.content.Intent;
 import android.graphics.Paint;
 import android.icu.text.DateFormat;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
-
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 
 /**
  * That's code the COVID-19 app.
+ *
+ * Used API:
+ * https://www.countryflags.io/code_country_name/shiny/64.png
+ * https://api.covid19api.com/summary
+ * https://api.apify.com/v2/key-value-stores/3Po6TV7wTht4vIEid/records/LATEST?disableRedirect=true
+ *
  */
 
-// TODO: Add JSON flags and config with code.
+
 
 
 
 public class MainActivity extends AppCompatActivity {
 
     final String BASE_URL_SUMMARY = "https://api.covid19api.com/summary";
-    String countryCodeURL = "https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16";
-
-    TextView todayDate;
-
-    FloatingActionButton addButton;
 
 
-    static String chosenCountry;
+    private String chosenCountry;
 
-    TextView countryName;
+    private TextView countryName;
 
     private static boolean isConfirmed, isNewConfirmed, isDeaths, isNewDeaths, isRecovered, isNewRecovered,
     isLastUpdated;
@@ -63,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 //        todayDate
         Date currentTime = Calendar.getInstance().getTime();
         String formattedDate = DateFormat.getDateInstance().format(currentTime);
-        todayDate = findViewById(R.id.todayDate);
+        TextView todayDate = findViewById(R.id.todayDate);
         todayDate.setText(formattedDate);
 
 
@@ -71,13 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
 //        /* END CODE FOR JSON ***/
 
-
-
-
-
-
         // setOnClickListener ImageView "add"
-        addButton = findViewById(R.id.addButton);
+        FloatingActionButton addButton = findViewById(R.id.addButton);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,12 +131,14 @@ public class MainActivity extends AppCompatActivity {
                 boolean isAddButtonPressed = myIntent.getBooleanExtra("addButtonPressed", false);
 
                 if (isAddButtonPressed) {
-                    choiceUser();
+                    choiceUserandSetVisibility();
+
+
+                    // ImageView Flag
                     ImageView countryFlag;
                     countryFlag = findViewById(R.id.name_flag);
-                    FlagsDataModel model = new FlagsDataModel();
-                    model.letsDoSomeNetworking(countryCodeURL);
-                    loadImage(model.getUrl(), countryFlag);
+                    String url = "https://www.countryflags.io/" + getCountryCode() + "/shiny/64.png";
+                    loadImage(url, countryFlag);
 
                     Log.d("onResume", "button pressed");
                 }
@@ -155,10 +146,13 @@ public class MainActivity extends AppCompatActivity {
                 String Poland = "Poland";
 
                 if (chosenCountry != null && chosenCountry.equals(Poland)) {
-                    //underline and blue
+                    //underline and blue for poland name
                     countryName.setPaintFlags(countryName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                     countryName.setTextColor(getResources().getColor(R.color.cardview_light_background));
                     countryName.setOnClickListener(new View.OnClickListener() {
+
+
+                        // Interact onClick poland country and turn on polish regions
                         @Override
                         public void onClick(View view) {
                             openPolandRegionActivity();
@@ -175,9 +169,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // createNewLayout
 
-    private void choiceUser() {
+    private void choiceUserandSetVisibility() {
 
 
 
@@ -188,8 +181,6 @@ public class MainActivity extends AppCompatActivity {
         TextView newRecovered = findViewById(R.id.new_recovered_name);
         TextView recovered = findViewById(R.id.recovered_name);
         TextView updated = findViewById(R.id.update_name);
-//
-        ImageView countryFlag = findViewById(R.id.name_flag);
 
 
 
@@ -211,6 +202,15 @@ public class MainActivity extends AppCompatActivity {
         // Set country name
         countryName = findViewById(R.id.country_name);
         countryName.setText(chosenCountry);
+
+        // set Visibility
+        newConfirmed.setVisibility(View.VISIBLE);
+        confirmed.setVisibility(View.VISIBLE);
+        newDeaths.setVisibility(View.VISIBLE);
+        deaths.setVisibility(View.VISIBLE);
+        newRecovered.setVisibility(View.VISIBLE);
+        recovered.setVisibility(View.VISIBLE);
+        updated.setVisibility(View.VISIBLE);
     }
 
     private void loadImage(String url, ImageView countryFlag) {
@@ -221,6 +221,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    private String getCountryCode() {
+
+        Map<String, String> countries = new HashMap<>();
+        for (String iso : Locale.getISOCountries()) {
+            Locale l = new Locale("", iso);
+            countries.put(l.getDisplayCountry(), iso);
+        }
+        return countries.get(chosenCountry);
+    }
 
 
     //GETTERS
@@ -253,8 +263,5 @@ public class MainActivity extends AppCompatActivity {
         return isLastUpdated;
     }
 
-    public static String getChosenCountry() {
-        return chosenCountry;
-    }
 }
 

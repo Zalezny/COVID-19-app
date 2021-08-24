@@ -14,20 +14,16 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import org.w3c.dom.Text;
-
 import java.util.Arrays;
+
+
 
 public class AddActivity extends AppCompatActivity  {
 
 
     boolean isConfirmed, isDeaths, isNewDeaths, isNewConfirmed, isNewRecovered,
             isRecovered, isLastUpdated, addConfirmed;
-
-    boolean test;
 
     String selectedCountry;
 
@@ -46,7 +42,7 @@ public class AddActivity extends AppCompatActivity  {
         //ARRAY TO COUNTRIES TAB
 
         final AutoCompleteTextView selectedCountryACTextView = findViewById(R.id.selectedCountry);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, DataModel.getCountriestab());
         selectedCountryACTextView.setAdapter(adapter);
 
@@ -172,15 +168,6 @@ public class AddActivity extends AppCompatActivity  {
     private void finishThisActivity() {
         super.onBackPressed();
 
-    }
-
-    private void hideKeyboard() {
-        // Check if no view has focus:
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        }
     }
 
 }

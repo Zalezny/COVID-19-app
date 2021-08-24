@@ -15,9 +15,7 @@ public class PolandRegionActivity extends AppCompatActivity {
 
     final String URL_POLAND_REGION = "https://api.apify.com/v2/key-value-stores/3Po6TV7wTht4vIEid/records/LATEST?disableRedirect=true";
 
-    TextView todayDate;
-
-    SwipeRefreshLayout mSwipeRefreshLayout;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +26,7 @@ public class PolandRegionActivity extends AppCompatActivity {
         Date currentTime = Calendar.getInstance().getTime();
         String formattedDate = DateFormat.getDateInstance().format(currentTime);
 
-        todayDate = findViewById(R.id.todayDatePolish);
+        TextView todayDate = findViewById(R.id.todayDatePolish);
         todayDate.setText(formattedDate);
 
 
@@ -239,7 +237,7 @@ public class PolandRegionActivity extends AppCompatActivity {
         Swietokrzyskie.mDateOfSource = findViewById(R.id.updateSwietokrzyskie);
 
         //SwipeRefreshLayout
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.containerTwo);
+        mSwipeRefreshLayout = findViewById(R.id.containerTwo);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

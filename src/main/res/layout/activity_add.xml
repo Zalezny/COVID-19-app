@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,14 +18,15 @@
             android:id="@+id/imageViewArrowBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_back" />
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="@string/content_description_back_arrow" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
             android:gravity="center"
-            android:text="Give params"
+            android:text="@string/give_params_string"
             android:textAlignment="center"
             android:textColor="#D1D1D1"
             android:textSize="18sp"
@@ -52,13 +52,15 @@
                 android:layout_weight="1"
                 android:padding="20dp"
                 android:paddingEnd="20dp"
-                android:text="Country: "
+                android:paddingStart="20dp"
+                android:text="@string/country_add_string"
                 android:textAlignment="textStart"
                 android:textColor="@color/textColor"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
             <AutoCompleteTextView
+                android:labelFor="@id/selectedCountry"
                 android:id="@+id/selectedCountry"
                 android:layout_width="67dp"
                 android:layout_height="wrap_content"
@@ -91,7 +93,7 @@
 
                     <TextView
 
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="20dp"
@@ -107,7 +109,7 @@
 
                     <TextView
 
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="20dp"
@@ -123,7 +125,7 @@
 
                     <TextView
 
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="20dp"
@@ -139,7 +141,7 @@
 
                     <TextView
 
-                        android:layout_width="115dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="20dp"
@@ -155,7 +157,7 @@
 
                     <TextView
 
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="20dp"
@@ -171,7 +173,7 @@
 
                     <TextView
 
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="20dp"
@@ -187,7 +189,7 @@
 
                     <TextView
 
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="20dp"
@@ -208,7 +210,8 @@
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:clickable="true"
-                    android:padding="20dp" />
+                    android:padding="20dp"
+                    android:focusable="true" />
 
                 <CheckBox
                     android:id="@+id/checkedConfirmed"
@@ -216,7 +219,8 @@
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:clickable="true"
-                    android:padding="20dp" />
+                    android:padding="20dp"
+                    android:focusable="true" />
 
                 <CheckBox
                     android:id="@+id/checkedNewRecovered"
@@ -224,7 +228,8 @@
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:clickable="true"
-                    android:padding="20dp" />
+                    android:padding="20dp"
+                    android:focusable="true" />
 
                 <CheckBox
                     android:id="@+id/checkedDeaths"
@@ -232,7 +237,8 @@
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:clickable="true"
-                    android:padding="20dp" />
+                    android:padding="20dp"
+                    android:focusable="true" />
 
                 <CheckBox
                     android:id="@+id/checkedNewDeaths"
@@ -240,7 +246,8 @@
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:clickable="true"
-                    android:padding="20dp" />
+                    android:padding="20dp"
+                    android:focusable="true" />
 
                 <CheckBox
                     android:id="@+id/checkedNewConfirmed"
@@ -248,7 +255,8 @@
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:clickable="true"
-                    android:padding="20dp" />
+                    android:padding="20dp"
+                    android:focusable="true" />
 
                 <CheckBox
                     android:id="@+id/checkedLastUpdated"
@@ -256,7 +264,8 @@
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:clickable="true"
-                    android:padding="20dp" />
+                    android:padding="20dp"
+                    android:focusable="true" />
             </LinearLayout>
         </LinearLayout>
 
@@ -267,7 +276,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
             android:padding="10dp"
-            android:text="Add"
+            android:text="@string/add_string"
             android:backgroundTint="@color/colorAccent"/>
 
     </LinearLayout>

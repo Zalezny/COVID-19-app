@@ -4,6 +4,7 @@ import android.opengl.Visibility;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -46,6 +47,7 @@ public class DataModel extends MainActivity {
                 Log.d("COVID-19", "JSONPOSTMAN: " + response.toString());
 
                 try {
+                    // connection
                     for (int i = 0; i < 190; i++)
                         countriestab[i] = response.getJSONArray("Countries").getJSONObject(i).getString("Country");
                     for (int i = 0; i < 190; i++)
@@ -124,7 +126,10 @@ public class DataModel extends MainActivity {
                         }
 
                 } catch (JSONException e) {
+                    // no connection
                     e.printStackTrace();
+
+
                 }
 
 

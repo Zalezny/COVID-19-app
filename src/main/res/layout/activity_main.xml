@@ -126,6 +126,62 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/name_flag" />
 
+                    <!--NO INTERNET CONNECTION-->
+
+                    <ImageView
+                        android:id="@+id/grave_picture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/gravenet"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/no_internet_heading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No Internet Connection"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/grave_picture"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/no_internet_text"
+                        android:layout_width="251dp"
+                        android:layout_height="49dp"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:text="Check your Internet Connection and Try Again"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="#919191"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/no_internet_heading"
+                        android:visibility="gone"/>
+
+                    <Button
+                        android:id="@+id/try_again_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:paddingHorizontal="32dp"
+                        android:text="Try Again"
+                        android:textAllCaps="false"
+                        android:textColor="@color/cardview_dark_background"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/no_internet_text"
+                        android:visibility="gone"/>
+                        <!-- /\/\/\/\/\/\/\/\/\/\/\/\/\/\ -->
+                        <!--  END NO INTERNET CONNECTION -->
+
                     <TextView
                         android:id="@+id/new_confirmed_name"
                         android:layout_width="wrap_content"

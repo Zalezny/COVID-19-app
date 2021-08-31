@@ -1,11 +1,15 @@
 
 package com.example.covid_19;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.icu.text.DateFormat;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     private static boolean isConfirmed, isNewConfirmed, isDeaths, isNewDeaths, isRecovered, isNewRecovered,
     isLastUpdated;
 
+    private Button tryAgainButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-//        /* END CODE FOR JSON ***/
-
         // setOnClickListener ImageView "add"
         FloatingActionButton addButton = findViewById(R.id.addButton);
 
@@ -72,6 +75,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openAddActivity();
+            }
+        });
+
+        // Button try_Again
+
+        tryAgainButton = findViewById(R.id.try_again_button);
+
+        drawLayout();
+        tryAgainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawLayout();
             }
         });
 
@@ -114,63 +129,68 @@ public class MainActivity extends AppCompatActivity {
 
             boolean isArrowBackFromAddActivity = myIntent.getBooleanExtra("isChoice", false);
 
+            if(!isConnected())
+            {
+                drawLayout();
+            } else {
 
-            if (isArrowBackFromAddActivity) {
-                isConfirmed = myIntent.getBooleanExtra("checkBoxConfirmed", true);
-                isNewConfirmed = myIntent.getBooleanExtra("checkBoxNewConfirmed", true);
-                isDeaths = myIntent.getBooleanExtra("checkBoxDeaths", true);
-                isNewDeaths = myIntent.getBooleanExtra("checkBoxNewDeaths", true);
-                isRecovered = myIntent.getBooleanExtra("checkBoxRecovered", true);
-                isNewRecovered = myIntent.getBooleanExtra("checkBoxNewRecovered", true);
-                isLastUpdated = myIntent.getBooleanExtra("checkBoxLastUpdated", true);
+                if (isArrowBackFromAddActivity) {
+                    isConfirmed = myIntent.getBooleanExtra("checkBoxConfirmed", true);
+                    isNewConfirmed = myIntent.getBooleanExtra("checkBoxNewConfirmed", true);
+                    isDeaths = myIntent.getBooleanExtra("checkBoxDeaths", true);
+                    isNewDeaths = myIntent.getBooleanExtra("checkBoxNewDeaths", true);
+                    isRecovered = myIntent.getBooleanExtra("checkBoxRecovered", true);
+                    isNewRecovered = myIntent.getBooleanExtra("checkBoxNewRecovered", true);
+                    isLastUpdated = myIntent.getBooleanExtra("checkBoxLastUpdated", true);
 
-                Log.d("Checkoboxe", "onResume: " + isLastUpdated);
+                    Log.d("Checkoboxe", "onResume: " + isLastUpdated);
 
-                chosenCountry = myIntent.getStringExtra("selectedCountry");
+                    chosenCountry = myIntent.getStringExtra("selectedCountry");
 
-                boolean isAddButtonPressed = myIntent.getBooleanExtra("addButtonPressed", false);
+                    boolean isAddButtonPressed = myIntent.getBooleanExtra("addButtonPressed", false);
 
-                if (isAddButtonPressed) {
-                    choiceUserandSetVisibility();
+                    if (isAddButtonPressed) {
+                        choiceUserAndSetVisibility();
 
 
-                    // ImageView Flag
-                    ImageView countryFlag;
-                    countryFlag = findViewById(R.id.name_flag);
-                    String url = "https://www.countryflags.io/" + getCountryCode() + "/shiny/64.png";
-                    loadImage(url, countryFlag);
+                        // ImageView Flag
+                        ImageView countryFlag;
+                        countryFlag = findViewById(R.id.name_flag);
+                        String url = "https://www.countryflags.io/" + getCountryCode() + "/shiny/64.png";
+                        loadImage(url, countryFlag);
 
-                    Log.d("onResume", "button pressed");
+                        Log.d("onResume", "button pressed");
+                    }
+
+                    String Poland = "Poland";
+
+                    if (chosenCountry != null && chosenCountry.equals(Poland)) {
+                        //underline and blue for poland name
+                        countryName.setPaintFlags(countryName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+                        countryName.setTextColor(getResources().getColor(R.color.cardview_light_background));
+                        countryName.setOnClickListener(new View.OnClickListener() {
+
+
+                            // Interact onClick poland country and turn on polish regions
+                            @Override
+                            public void onClick(View view) {
+                                openPolandRegionActivity();
+
+                            }
+                        });
+                    } else if (chosenCountry != null) {
+                        countryName.setPaintFlags(View.INVISIBLE);
+                    }
+
+                    // this change key from true to false (main)
+                    myIntent.putExtra("isChoice", false);
                 }
-
-                String Poland = "Poland";
-
-                if (chosenCountry != null && chosenCountry.equals(Poland)) {
-                    //underline and blue for poland name
-                    countryName.setPaintFlags(countryName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-                    countryName.setTextColor(getResources().getColor(R.color.cardview_light_background));
-                    countryName.setOnClickListener(new View.OnClickListener() {
-
-
-                        // Interact onClick poland country and turn on polish regions
-                        @Override
-                        public void onClick(View view) {
-                            openPolandRegionActivity();
-
-                        }
-                    });
-                } else if (chosenCountry != null) {
-                    countryName.setPaintFlags(View.INVISIBLE);
-                }
-
-                // this change key from true to false (main)
-                myIntent.putExtra("isChoice", false);
             }
 
     }
 
 
-    private void choiceUserandSetVisibility() {
+    private void choiceUserAndSetVisibility() {
 
 
 
@@ -230,6 +250,43 @@ public class MainActivity extends AppCompatActivity {
             countries.put(l.getDisplayCountry(), iso);
         }
         return countries.get(chosenCountry);
+    }
+
+    private boolean isConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if(networkInfo!=null){
+            if(networkInfo.isConnected())
+                return true;
+            else
+                return false;
+        }else
+            return false;
+    }
+
+    private void drawLayout() {
+        TextView infoText = findViewById(R.id.country_name);
+        TextView noInternetHeading = findViewById(R.id.no_internet_heading);
+        TextView noInternetText = findViewById(R.id.no_internet_text);
+        ImageView gravePicture = findViewById(R.id.grave_picture);
+
+
+        if (isConnected()) {
+            infoText.setVisibility(View.VISIBLE);
+            noInternetHeading.setVisibility(View.GONE);
+            noInternetText.setVisibility(View.GONE);
+            gravePicture.setVisibility(View.GONE);
+            tryAgainButton.setVisibility(View.GONE);
+        }
+            else
+            {
+                infoText.setVisibility(View.GONE);
+                noInternetHeading.setVisibility(View.VISIBLE);
+                noInternetText.setVisibility(View.VISIBLE);
+                gravePicture.setVisibility(View.VISIBLE);
+                tryAgainButton.setVisibility(View.VISIBLE);
+        }
     }
 
 

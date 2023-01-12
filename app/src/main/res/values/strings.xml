@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_string">COVID-19</string>
+    <string name="infected_string">infected:&#160;</string>
+    <string name="deceased_string">deceased:&#160;</string>
+    <string name="recovered_string">recovered:&#160;</string>
+    <string name="active_case_string">active case:&#160;</string>
+    <string name="daily_quarantine_string">Quarantine:&#160;</string>
+    <string name="lasted_updated_string">lasted updated:&#160;</string>
+    <string name="new_confirmed_string"><b> new confirmed:&#160; </b> </string>
+    <string name="confirmed_string">confirmed:&#160;</string>
+    <string name="new_deaths_string">new deaths:&#160;</string>
+    <string name="deaths_string">deaths:&#160;</string>
+    <string name="new_recovered_string">new recovered:&#160;</string>
+    <string name="tested_string">tested:&#160;</string>
+    <string name="quarantine_string">quarantine:&#160;</string>
+    <string name="tested_pos_string">testedPos:&#160;</string>
+    <string name="tested_neg_string">testedNeg:&#160;</string>
+    <string name="last_updated">last updated:&#160;</string>
+
+    <string name="poland_flag_description">Poland Flag</string>
+    <string name="azerbaijan_flag_description">Azerbaijan Flag</string>
+    <string name="content_description_man">man with mask</string>
+    <string name="content_description_icon_add">icon add</string>
+    <string name="content_description_flag">flag of country</string>
+    <string name="content_description_back_arrow">back arrow</string>
+
+    <string name="text_size">16sp</string>
+    <string name="todayDate_string">data</string>
+    <string name="country_string">Give name of country</string>
+    <string name="give_params_string">Give params</string>
+    <string name="country_add_string">Country:</string>
+    <string name="add_string">Add</string>
+
+</resources>
